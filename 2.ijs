@@ -295,7 +295,6 @@ t21e=: 1 0 0 , 0 1 0 ,: 3 0 1
 spin21=: mp&(rot19 1r8p1)
 move21=: mp&t21e
 circle21=: mp&(rot19 1r6p1)
-dclear ''
 NB. x frame21 y
 NB. Compute the x-th frame of transformation applied on polygon y.
 NB. Each frame the polygon will undergo transformations in order:
@@ -307,4 +306,40 @@ NB. The function frame21 has rank infinity _ _ _ (as shown by frame21 b. 0)
 NB. So to avoid circle21 and spin21 taking x as a list,
 NB. we have to specify that frame21 should apply on each atom in x,
 NB. meaning that the left rank should be 0 rather than infinity.
+0 : 0
+dclear ''
 dapoly (i.30) frame21"(0 _) triangle21
+)
+
+NB. Exercise 22
+f22a=: (^@-) * sin
+f22b=: (^@-) * sin@*&2
+f22c=: (^@-) * sin@*&3
+f22d=: (^@-) * sin@*&4
+f22=: f22a`f22b`f22c`f22d
+data22=: steps 0 4p1 1000
+0 : 0
+plot data22;f22`:0 data22
+)
+
+NB. Exercise 23
+f23a=: sin
+f23b=: *&1r2 @ sin @ *&2
+f23c=: *&1r3 @ sin @ *&3
+f23d=: *&1r4 @ sin @ *&4
+f23=: f23a`f23b`f23c`f23d
+data23=: steps 0 4p1 1000
+0 : 0
+plot data23;f23`:0 data23
+)
+
+NB. Exercise 24
+NB. Amplitude-modulate a sine wave with carrier wave 1/4sin8x
+f24a=: sin
+f24b=: *&1r4 @ sin @ *&8
+f24c=: 4 * f24a * f24b
+f24=: f24a`f24b`f24c
+data24=: steps 0 4p1 1000
+0 : 0
+'pensize 2' plot data24;f24`:0 data24
+)
