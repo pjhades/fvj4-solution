@@ -245,8 +245,8 @@ t19e=: t19d mp t19c
 NB. (f)
 t19f=: t19c mp t19d
 NB. test
-0 : 0
 lshape19=: (0 0,2 0,2 1,1 1,1 3,:0 3),.1
+0 : 0
 dclear ''
 250 250 250 dpoly lshape19
 200 200 200 dpoly lshape19 mp t19f
@@ -257,3 +257,54 @@ NB. not much related since matrix multiplication is not commutative.
 NB. if we take t19d as m1 and t19c as m2, the two transformations
 NB. (m1 mp m2) and (m2 mp m1) are not the same: in (m1 mp m2) the rotation affects the translation,
 NB. while in (m2 mp m1) two transformations are reserved.
+
+NB. Exercise 21
+NB. reuse variables defined in exercise 19
+NB. (a)
+t21a=: 1 0 0 , 0 1 0 ,: 0.2 0.4 1
+0 : 0
+dclear ''
+dapoly (mp&t21a)^:(i.50) lshape19
+)
+NB. (b)
+0 : 0
+dclear ''
+dapoly (mp&(rot19 1r6p1))^:(i.50) lshape19
+)
+NB. (c)
+0 : 0
+t21c=: 1 0 0 , 0 5r6 0 ,: 0 0 1
+dclear ''
+NB. disappears: height becomes less than 0.001
+dapoly (mp&t21c)^:(i. <. 5r6^.3e_3) lshape19
+)
+NB. (d)
+0 : 0
+dclear ''
+times=: i. <. 5r6^.3e_3
+after=: (mp&t21c)^:({:times) lshape19
+dapoly (mp&t21c)^:times lshape19
+NB. apply matrix inverse
+t21d=: 1 0 0 , 0 _1 0 ,: 0 0 1
+after=: after mp t21d
+dapoly (mp&(%.t21c))^:times after
+)
+NB. (e)
+triangle21=: (|: 2 1 o./ 2r3p1 * i.3) ,. 1
+t21e=: 1 0 0 , 0 1 0 ,: 3 0 1
+spin21=: mp&(rot19 1r8p1)
+move21=: mp&t21e
+circle21=: mp&(rot19 1r6p1)
+dclear ''
+NB. x frame21 y
+NB. Compute the x-th frame of transformation applied on polygon y.
+NB. Each frame the polygon will undergo transformations in order:
+NB. spin -> translate -> move around circle
+frame21=: 4 : 0
+(circle21^:x) move21 (spin21^:x) y
+)
+NB. The function frame21 has rank infinity _ _ _ (as shown by frame21 b. 0)
+NB. So to avoid circle21 and spin21 taking x as a list,
+NB. we have to specify that frame21 should apply on each atom in x,
+NB. meaning that the left rank should be 0 rather than infinity.
+dapoly (i.30) frame21"(0 _) triangle21
