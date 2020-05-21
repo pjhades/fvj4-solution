@@ -343,3 +343,71 @@ data24=: steps 0 4p1 1000
 0 : 0
 'pensize 2' plot data24;f24`:0 data24
 )
+
+NB. Exercise 25
+g25a=: +`-`*:
+g25b=: ,`,.
+NB. (a) 3
+NB. (b) 5
+NB. (c) 2 3
+NB. (d) 3 3
+NB. (e) 2 3 3
+
+NB. Exercise 26
+NB. You will repeat the stars in each pattern.
+
+NB. Exercise 27
+NB. Some unknown plant leaves.
+m27a=: 0 0 0 , 0 0.16 0 ,: 0.25 0 1
+m27b=: 0.85 _0.04 0 , 0.04 0.85 0 ,: 0.0375 0.17 1
+m27c=: 0.2 0.23 0 , _0.26 0.22 0 ,: 0.2 0.1025 1
+m27d=: _0.15 0.26 0 , 0.28 0.24 0 ,: 0.2875 _0.021 1
+
+t27a=: mp&m27a
+t27b=: mp&m27b
+t27c=: mp&m27c
+t27d=: mp&m27d
+
+collage27=: t27a`t27b`t27c`t27d `:0
+square27=: (0 0 , 1 0 , 1 1 ,: 0 1) ,. 1
+0 : 0
+dclear ''
+80 255 0 dpoly collage27^:5 square27
+)
+
+NB. Exercise 28
+NB. (a) just contract to 1/3 and move to the spots
+m28_onethird=: 1r3 0 0 , 0 1r3 0 ,: 0 0 1
+m28a=: 1 0 0 , 0 1 0 ,: 0 2r3 1   NB. move to top-left
+m28b=: 1 0 0 , 0 1 0 ,: 1r3 2r3 1 NB. move to top-middle
+m28c=: 1 0 0 , 0 1 0 ,: 2r3 2r3 1 NB. move to top-right
+m28d=: 1 0 0 , 0 1 0 ,: 0 1r3 1   NB. move to middle-left
+m28e=: 1 0 0 , 0 1 0 ,: 2r3 1r3 1 NB. move to middle-right
+m28g=: 1 0 0 , 0 1 0 ,: 1r3 0 1   NB. move to bottom-middle
+
+t28a=: mp&m28a @: mp&m28_onethird
+t28b=: mp&m28b @: mp&m28_onethird
+t28c=: mp&m28c @: mp&m28_onethird
+t28d=: mp&m28d @: mp&m28_onethird
+t28e=: mp&m28e @: mp&m28_onethird
+t28f=: mp&m28_onethird
+t28g=: mp&m28f @: mp&m28_onethird
+
+NB. (b)
+collage28=: t28a`t28b`t28c`t28d`t28e`t28f`t28g `:0
+0 : 0
+dclear ''
+dpoly collage28^:4 square27
+)
+
+NB. Exercise 29
+refine_with_cap =: [: ,/ [ segdiv"1 (1&|.)
+equal29=: (*/ @ ,)"2 @: =
+'test_refine_with_cap' ; test_result (?1000 2$1000) (refine_with_cap"1 equal29 refine"1) ?1000 2 $1000
+
+NB. Exercise 30
+NB. (a) _2 _1 0 0 1
+NB. (b) _1 0 0 1 2
+
+NB. Exercise 31
+NB. Il y a beaucoup de surprise et secret à découvrir.
